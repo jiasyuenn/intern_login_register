@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(100) NOT NULL,
     password VARCHAR(50) NOT NULL,
     otp INT(6) DEFAULT NULL,
-    status VARCHAR(50) NOT NULL,
+    status VARCHAR(50) DEFAULT 'unverified',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 );
