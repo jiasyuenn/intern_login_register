@@ -10,7 +10,7 @@
     require 'phpmailer/src/Exception.php';
     require 'phpmailer/src/PHPMailer.php';
     require 'phpmailer/src/SMTP.php';
-
+        
 
    include('config/db_connect.php'); //connect to database
 
@@ -26,7 +26,7 @@
         }else{
             //more validation
             $username = $_POST['username'];
-            if(!preg_match('/^[a-zA-Z\s]+$/', $username)){
+            if(!preg_match('/^[a-zA-Z0-9\s]+$/', $username)){
                 $errors['username'] = 'Invalid username';
             }
         }

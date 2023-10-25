@@ -1,7 +1,54 @@
 <?php
-session_start();
-?>
+session_start(); 
+//session_start();   
+$verify="";
+$credential="";
+//checks if http request is post (submit form)
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    $host="localhost";
+    $username = "root";
+    $password = "";
+    $database = "db";
 
+    //connect to db, replace with actual username and password
+    $conn = new mysqli($host, $username, $password, $database);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    #retrieves username and password from html login form
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    //session to be used in unverified.php
+    $_SESSION['un'] = $_POST['username'];
+
+    #find the user in db
+    $sql = "SELECT * FROM users WHERE username='$username' AND password='$password' ";
+
+    #execute sql and store in result
+    $result = $conn -> query($sql);
+
+    if($result -> num_rows > 0){
+        while($row=$result->fetch_assoc())
+        {
+            $status = $row['status'];
+            $username = $row['username'];
+        }
+        if($status == "unverified"){
+            $verify="none";
+        }else{
+            header("location: mainpage.php");
+        }
+    }else{
+        $credential ='none';
+    }
+
+
+    $conn->close();
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,11 +57,6 @@ session_start();
         <title>Login Form</title>
         <link rel="stylesheet" href="css01/login01.css">
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        <style>
-            .success-message {
-                color: red;
-            }
-        </style>
     </head>
 
     <body>
@@ -51,59 +93,28 @@ session_start();
                     <p>Don't have an account? <a href="register01.php"> Register </a></p>
                 </div>
 
+                <?php
+                    if($verify == "none"){
+                        header('Location:unverified.php');
+                    }else{
+                        echo "";
+                    }
+
+                    if($credential == "none"){
+                        echo '<div class="red-text" >Username or password incorrect! Please try again !</div>';
+                    }else{
+                        echo '';
+                    }
+                ?>
+
+
+
             </form>
         </div>
+        
+        
     </body>
+    
 </html>
 
 
-<?php  
-//session_start();   //start of php
-
-//checks if http request is post (submit form)
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-
-    $host="localhost";
-    $username = "root";
-    $password = "";
-    $database = "db";
-
-    //connect to db, replace with actual username and password
-    $conn = new mysqli($host, $username, $password, $database);
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    #retrieves username and password from html login form
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    #find the user in db
-    $sql = "SELECT * FROM users WHERE username='$username' AND password='$password' AND status='verified' ";
-    $sql01 = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-    //$sql02 = "SELECT * FROM users WHERE status ='verified' ";
-    
-    #execute sql and store in result
-    $result = $conn -> query($sql);
-    $result01 = $conn -> query($sql01);
-    //$result02 = $conn -> query($sql02);
-
-    if($result -> num_rows == 1){
-        header("location: mainpage.php");
-    }
-    else{
-
-        if($result01 -> num_rows == 0){
-            $alertMessage = "Login failed! Please enter the correct login credentials.";
-            echo "<script>alert('$alertMessage');</script>";
-        }else{
-            echo "<script>alert('Login failed! Email unverified, please verify your email');</script>";
-        }
-
-    }
-  
-    $conn->close();
-}
-
-?>
