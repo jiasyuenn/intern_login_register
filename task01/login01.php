@@ -34,7 +34,7 @@ session_start();
                 </div>
 
                 <div class="input-box">
-                    <input type="password" name="username" placeholder="Password" required>
+                    <input type="password" name="password" placeholder="Password" required>
                     <i class='bx bx-lock'></i>
                 </div>
 
@@ -50,7 +50,7 @@ session_start();
                 <div class="register">
                     <p>Don't have an account? <a href="register01.php"> Register </a></p>
                 </div>
-                
+
             </form>
         </div>
     </body>
@@ -80,21 +80,29 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $password = $_POST['password'];
 
     #find the user in db
-    $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+    $sql = "SELECT * FROM users WHERE username='$username' AND password='$password' AND status='verified' ";
+    $sql01 = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+    //$sql02 = "SELECT * FROM users WHERE status ='verified' ";
     
     #execute sql and store in result
     $result = $conn -> query($sql);
+    $result01 = $conn -> query($sql01);
+    //$result02 = $conn -> query($sql02);
 
     if($result -> num_rows == 1){
-        header("location: welcome.php");
+        header("location: mainpage.php");
     }
+    else{
 
-    else
-        #$login_error = "Login failed. Please enter the correct login credentials.";
+        if($result01 -> num_rows == 0){
+            $alertMessage = "Login failed! Please enter the correct login credentials.";
+            echo "<script>alert('$alertMessage');</script>";
+        }else{
+            echo "<script>alert('Login failed! Email unverified, please verify your email');</script>";
+        }
 
-        $alertMessage = "Login failed. Please enter the correct login credentials.";
-        echo "<script>alert('$alertMessage');</script>";
-
+    }
+  
     $conn->close();
 }
 

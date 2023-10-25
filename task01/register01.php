@@ -122,6 +122,7 @@
                         //code here? to display success message in login.php
                         session_start();
 
+                        $_SESSION['email01'] = $_POST['email'];
                         $_SESSION['success'] = "Registration successful! Please check your email.";
 
                         header('Location:login01.php');
