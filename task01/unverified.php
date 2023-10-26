@@ -10,7 +10,7 @@
     require 'phpmailer/src/PHPMailer.php';
     require 'phpmailer/src/SMTP.php';
 
-    include('config/db_connect.php'); //connect to database
+    include('db_action/db_connect.php'); //connect to database
 
     //email content
     $subject = "Email Address Verification";
@@ -18,7 +18,7 @@
 
     //back to login page
     if(isset($_POST['close'])){
-        header("location: login01.php");
+        header("location: login.php");
     }
 
     if(isset($_POST['resend'])){
@@ -56,15 +56,14 @@
                 $mail->Body = $message;
 
                 if ($mail->send()) {
-                    //success -> redirect
-            
-                    //code here? to display success message in login.php
-                    //session_start();
 
+                    //session to be used in welcome.php
                     $_SESSION['email01'] = $email;
+
+                    //session to be used in login.php
                     $_SESSION['success'] = "Registration successful! Please check your email.";
 
-                    header('Location:login01.php');
+                    header('Location:login.php');
                 } 
                 else {
                     echo 'Email could not be sent.' . $mail->ErrorInfo;
@@ -91,7 +90,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css01/unverified.css">
+    <link rel="stylesheet" href="css/unverified.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
