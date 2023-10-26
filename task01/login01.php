@@ -25,7 +25,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $_SESSION['un'] = $_POST['username'];
 
     #find the user in db
-    $sql = "SELECT * FROM users WHERE username='$username' AND password='$password' ";
+    $sql = "SELECT * FROM users WHERE username='$username'";
 
     #execute sql and store in result
     $result = $conn -> query($sql);
@@ -35,12 +35,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         {
             $status = $row['status'];
             $username = $row['username'];
+            $stored_hash = $row['password'];
         }
-        if($status == "unverified"){
-            $verify="none";
-        }else{
-            header("location: mainpage.php");
+
+        //compare user entered password and hashed password using password_verify function
+        if (password_verify($password, $stored_hash)){
+            if($status == "unverified"){
+                $verify="none";
+            }
+
+            else{
+                header("location: mainpage.php");
+            }
         }
+    
     }else{
         $credential ='none';
     }

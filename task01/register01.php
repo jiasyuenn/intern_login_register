@@ -89,8 +89,12 @@
                 $errors['email'] = 'Email is already in use!';
             } else {
                 //username not yet exist
+
+                ##hashing##hashing##hashing##hashing##hashing##hashing##hashing##hashing##hashing##hashing##hashing##
+                $hashed_password = password_hash($password02, PASSWORD_DEFAULT);
+
                 //create sql
-                $sql = "INSERT INTO users (username,email,password) VALUES('$username', '$email', '$password02')";
+                $sql = "INSERT INTO users (username,email,password) VALUES('$username', '$email', '$hashed_password')";
             
                 //save to database and check
                 if(mysqli_query($conn, $sql)){

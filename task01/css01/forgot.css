@@ -27,7 +27,6 @@ body {
 } 
 
 .wrapper h4 {
-    
     font-size: 36px;
     text-align:center;
 }
@@ -92,4 +91,8 @@ body {
 
 .register p a:hover {
     text-decoration: underline;
+}
+
+.error-message {
+    color: red;
 }
