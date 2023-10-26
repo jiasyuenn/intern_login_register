@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OTP code</title>
-    <link rel="stylesheet" href="css01/otp.css"> 
+    <link rel="stylesheet" href="css/otp.css"> 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 </head>
     <body>
         <div class="wrapper">
-            <form action="db_action/DBotp.php" method="post">
+            <form action="db_action/db_otp.php" method="post">
                 <h2>Enter the 6 digit OTP code</h2>
 
                 <div class="input-box">

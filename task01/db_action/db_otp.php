@@ -1,17 +1,9 @@
 <?php
 
 include '../db_action/sendOTP.php';
-
+include '../db_action/db_connect.php';
 
 session_start();
-
-$host="localhost";
-$username = "root";
-$password = "";
-$database = "db";
-
-//connect to db, replace with actual username and password
-$conn = new mysqli($host, $username, $password, $database);
 
 $email = $_SESSION['email'];
 

@@ -1,6 +1,6 @@
 <?php 
     
-    include('config/db_connect.php'); //connect to database
+    include('db_action/db_connect.php'); //connect to database
 
     if(isset($_POST['submit'])){
         session_start();
@@ -15,7 +15,7 @@
 
             if (mysqli_query($conn, $sql)) {
                 // Status updated successfully
-                header('Location: login01.php');
+                header('Location: login.php');
             } else {
                 // Error updating the status
                 echo "Error updating status:" . mysqli_error($conn);
@@ -31,7 +31,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">\
-    <link rel="stylesheet" href="css01/welcome.css">
+    <link rel="stylesheet" href="css/welcome.css">
 </head>
 <body>
     <div class="wrapper">

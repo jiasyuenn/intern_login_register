@@ -65,13 +65,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login Form</title>
-        <link rel="stylesheet" href="css01/login01.css">
+        <link rel="stylesheet" href="css/login.css">
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     </head>
 
     <body>
         <div class="wrapper">
-            <form action="login01.php" method="post">
+            <form action="login.php" method="post">
                 <h4>Login</h4>
                 <?php
                     if (isset($_SESSION['success'])) {
@@ -100,7 +100,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </div>
 
                 <div class="register">
-                    <p>Don't have an account? <a href="register01.php"> Register </a></p>
+                    <p>Don't have an account? <a href="register.php"> Register </a></p>
                 </div>
 
                 <?php

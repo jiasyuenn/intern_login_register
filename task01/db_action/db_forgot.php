@@ -1,17 +1,8 @@
 <?php
 
 include '../db_action/sendOTP.php';
-//include 'conn.php'; // call database configure
-//mysqli_set_charset($conn, 'utf8');
+include '../db_action/db_connect.php';
 session_start();
-
-$host = "localhost";
-$username = "root";
-$password = "";
-$database = "db";
-
-//connect to db, replace with actual username and password
-$conn = new mysqli($host, $username, $password, $database);
 
 
 if (isset($_POST['submit'])){

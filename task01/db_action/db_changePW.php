@@ -1,13 +1,7 @@
 <?php
 session_start();
 
-$host="localhost";
-$username = "root";
-$password = "";
-$database = "db";
-
-//connect to db
-$conn = new mysqli($host, $username, $password, $database);
+include '../db_action/db_connect.php';
 
 //session management. Prevent accessing the changePW.php and changing password on demand. Execute if otp_verified == false, redirects to otp.php page
 if (!isset($_SESSION['otp_verified'])) {
@@ -33,7 +27,7 @@ if(isset($_POST['submit'])){
 
         //remove flag so that it wont interfere the next password reset process
         unset($_SESSION['otp_verified']);
-        echo "<script>alert('$alertMessage'); window.location.href='/task01/login01.php';</script>";
+        echo "<script>alert('$alertMessage'); window.location.href='/task01/login.php';</script>";
         
     }
     

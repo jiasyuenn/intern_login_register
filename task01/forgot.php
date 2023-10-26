@@ -4,13 +4,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title></title>
-        <link rel="stylesheet" href="css01/forgot.css"> 
+        <link rel="stylesheet" href="css/forgot.css"> 
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     </head>
 
     <body>
         <div class="wrapper">
-            <form action="db_action/DBforgot.php" method="post">
+            <form action="db_action/db_forgot.php" method="post">
                 <h4>Reset Password</h4>
                 <div class="input-box">
                     <input type="text" id="email" name="email" placeholder="Email" required>
@@ -32,7 +32,7 @@
                 ?>
 
                 <div class="register">
-                    <p>Don't have an account? <a href="register01.php"> Sign in </a></p>
+                    <p>Don't have an account? <a href="register.php"> Sign in </a></p>
                 </div>        
             </form>
         <div>

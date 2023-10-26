@@ -1,7 +1,7 @@
 <?php 
 
     if(isset($_POST["logout"])){
-        header("Location:login01.php");
+        header("Location:login.php");
     }else{
         echo "";
     }
@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css01/mainpage.css">
+    <link rel="stylesheet" href="css/mainpage.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>

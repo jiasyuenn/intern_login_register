@@ -15,7 +15,7 @@ body {
     background-position: center;
 }
 
-.wrapper01 {
+.wrapper {
     height: 200px;
     width: 420px;
     background: transparent;
@@ -27,20 +27,20 @@ body {
     padding: 30px 40px;
 }
 
-.wrapper01 p {
+.wrapper p {
     font-size: 16px;
     font-weight: bold;
     margin-top: 15px;
     margin-bottom: 30px;
 }
 
-.wrapper01 .control{
+.wrapper .control{
     display:flex;
     justify-content: space-between;
     margin: 20px 0px 0px;
 }
 
-.wrapper01 input{
+.wrapper input{
     width:35%;
     height: 35px;
     background: #ffffff80;
@@ -54,7 +54,7 @@ body {
     font-weight: 600;
 }
 
-.wrapper01 input:hover{
+.wrapper input:hover{
     background: transparent;
     color:#fff;
 }
