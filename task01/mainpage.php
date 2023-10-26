@@ -1,4 +1,12 @@
-<?php ?>
+<?php 
+
+    if(isset($_POST["logout"])){
+        header("Location:login01.php");
+    }else{
+        echo "";
+    }
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +19,12 @@
 </head>
 <body>
     <div class="wrapper">
-        <h4>Hello World !</h4>
+        <form action="mainpage.php" method="post">
+            <div class="input-box">
+                <h4>Hello World !</h4>
+                <input type="submit" name="logout" value="Log out" >
+            </div>
+        </form>
     </div>
 </body>
 </html>

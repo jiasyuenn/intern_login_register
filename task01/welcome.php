@@ -31,15 +31,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">\
-    <link rel="stylesheet" href="css01/Welcome.css">
+    <link rel="stylesheet" href="css01/welcome.css">
 </head>
 <body>
     <div class="wrapper">
         <form action="welcome.php" method="POST">
-            <div>
+            <div class="input-box">
                 <p>Your email is verified ! You can login now !</p>
-            </div>
-            <div>
                 <input type="submit" name="submit" value="Proceed">
             </div>
         </form>
