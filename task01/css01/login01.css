@@ -113,3 +113,14 @@ body {
 .register p a:hover {
     text-decoration: underline;
 }
+
+.wrapper .red-text {
+    color:rgb(250, 143, 111);
+    font-weight: bold;
+}
+
+.wrapper .success-message {
+    font-weight: bold;
+    color: aqua;
+    margin-top: 10px;
+}

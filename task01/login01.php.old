@@ -1,7 +1,8 @@
 <?php
 session_start(); 
+//session_start();   
 $verify="";
-$credential ="";
+$credential="";
 //checks if http request is post (submit form)
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $host="localhost";
@@ -20,42 +21,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    ////session to be used in unverified.php
+    //session to be used in unverified.php
     $_SESSION['un'] = $_POST['username'];
 
     #find the user in db
-    $sql = "SELECT * FROM users WHERE username='$username'";
+    $sql = "SELECT * FROM users WHERE username='$username' AND password='$password' ";
 
     #execute sql and store in result
     $result = $conn -> query($sql);
-
-    $verify="";
-    $credential ="";
 
     if($result -> num_rows > 0){
         while($row=$result->fetch_assoc())
         {
             $status = $row['status'];
             $username = $row['username'];
-            $stored_hash = $row['password'];
         }
+        if($status == "unverified"){
+            $verify="none";
+        }else{
+            header("location: mainpage.php");
+        }
+    }else{
+        $credential ='none';
+    }
 
-        //compare user entered password and hashed password using password_verify function
-        if (password_verify($password, $stored_hash)){
-            if($status == "unverified"){
-                $verify="none";               
-            }
-            else{
-                header("location: mainpage.php");
-            }
-        }
-        else{
-            $credential ='none';
-        }
-    }
-    else{
-        $credential ='none'; 
-    }
+
     $conn->close();
 }
 ?>
@@ -116,6 +106,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         echo '';
                     }
                 ?>
+
+
+
             </form>
         </div>
         

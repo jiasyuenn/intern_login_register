@@ -14,60 +14,61 @@
 
    include('config/db_connect.php'); //connect to database
 
-    $username = $email = $password01 = $password02 ='';
-    $errors = array('username'=>'', 'email'=>'', 'password01'=>'', 'password02'=>'');
+    $username = $email = $password01 = $password02 =''; 
+    $errors = array('username'=>'', 'email'=>'', 'password01'=>'', 'password02'=>''); //store error message
+
+    //email content
     $subject = "Email Address Verification";
     $message = "Please click on this <a href=http://localhost/task01/welcome.php>link</a> to verify your email address!";
+
 
     if(isset($_POST['submit'])){
         //validate data
         if(empty($_POST['username'])){
-            $errors['username'] = 'Please enter username';
+            $errors['username'] = 'Please enter username !';
         }else{
             //more validation
             $username = $_POST['username'];
             if(!preg_match('/^[a-zA-Z0-9\s]+$/', $username)){
-                $errors['username'] = 'Invalid username';
+                $errors['username'] = 'Invalid username !';
             }
         }
 
         if(empty($_POST['email'])){
-            $errors['email'] = 'Please enter email';
+            $errors['email'] = 'Please enter email !';
         }else{
             $email = $_POST['email'];
             //echo $_POST['email'];
         }
 
         if(empty($_POST['password01'])){
-            $errors['password01'] = 'Please enter password';
+            $errors['password01'] = 'Please enter password !';
         }else{
-            $password01 = $_POST['password01'];
-            //echo $_POST['password01'];
-
             // Check if the password is at least 8 characters long
+            $password01 = $_POST['password01'];
             if (strlen($password01) < 8) {
-                $errors['password01'] = 'Password minimum 8 characters! ';
+                $errors['password01'] = 'Password minimum 8 characters ! ';
             }
         }
 
         if(empty($_POST['password02'])){
-            $errors['password02'] = 'Please re-enter password';
+            $errors['password02'] = 'Please re-enter password !';
         }else{
-            $password02 = $_POST['password02'];
-            //echo $_POST['password02'];
+            $password02 = $_POST['password02']; //?
         }
 
         // Compare password01 and password02
         if ($password01 !== $password02) {
-            $errors['password02'] = 'Passwords do not match!';
+            $errors['password02'] = 'Passwords not match!';
         } else {
-            $password02 = $_POST['password02'];
+            $password02 = $_POST['password02']; //?
         }
 
         //check errors
         if(array_filter($errors)){
             //echo 'error exist'; // do nothing
         }else{
+            //read user input
             $username = mysqli_real_escape_string ($conn, $_POST['username']);
             $email = mysqli_real_escape_string ($conn, $_POST['email']);
             //$password01 = mysqli_real_escape_string ($conn, $_POST['password01']);
@@ -83,12 +84,12 @@
 
             if (mysqli_num_rows($result_username) > 0){
                 // Username alr exist
-                $errors['username'] = 'Username is already in use!';
+                $errors['username'] = 'Username is already in use !';
             } else if (mysqli_num_rows($result_email) > 0) {
                 //email alr exist
-                $errors['email'] = 'Email is already in use!';
+                $errors['email'] = 'Email is already in use !';
             } else {
-                //username not yet exist
+                //username & email not yet exist
 
                 ##hashing##hashing##hashing##hashing##hashing##hashing##hashing##hashing##hashing##hashing##hashing##
                 $hashed_password = password_hash($password02, PASSWORD_DEFAULT);
@@ -99,10 +100,8 @@
                 //save to database and check
                 if(mysqli_query($conn, $sql)){
                    
-
                     //send verification email
                     $mail = new PHPMailer(true);
-
                     $mail -> isSMTP();
                     $mail ->Host = 'smtp.gmail.com';
                     $mail ->SMTPAuth = true;
@@ -110,25 +109,20 @@
                     $mail->Password = 'xzfeycurtrhoknwy'; // Your gmail app password
                     $mail->SMTPSecure = 'ssl';
                     $mail->Port = 465;
-
                     $mail->setFrom('team.koson@gmail.com');
-                    
                     $mail->addAddress($_POST['email']);
-
                     $mail->isHTML(true);
-
                     $mail->Subject = $subject;
                     $mail->Body = $message;
-
                     if ($mail->send()) {
-                        //success -> redirect
-                
-                        //code here? to display success message in login.php
                         session_start();
-
+                        //session to be used in welcome.php
                         $_SESSION['email01'] = $_POST['email'];
-                        $_SESSION['success'] = "Registration successful! Please check your email.";
 
+                        //session to be used in login01.php
+                        $_SESSION['success'] = "Registration successful ! Please check your email !";
+
+                        //success -> redirect
                         header('Location:login01.php');
                     } 
                     else {
@@ -140,8 +134,6 @@
                     echo 'query error ' . mysqli_error($conn);
                 }
             }
-            //echo 'form valid';
-            //header('Location:welcome.php');
         }
     }
 ?>
@@ -152,7 +144,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css01/register01.css"> 
+    <link rel="stylesheet" href="css01/Register01.css"> 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
@@ -178,7 +170,7 @@
             </div>
 
             <div class="input-box">
-                <input type="password" name="password02" placeholder="Re-enter password" value="<?php echo $password02 ?>">
+                <input type="password" name="password02" placeholder="Confirm password" value="<?php echo $password02 ?>">
                 <i class='bx bx-lock'></i>
                 <div class="red-text"><?php echo $errors['password02']; ?></div>
             </div>
@@ -190,7 +182,6 @@
             <div class="register">
                 <p>Already have an account? <a href="login01.php">Login</a></p>
             </div>
-
         </form>
     </div>
 </body>

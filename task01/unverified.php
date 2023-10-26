@@ -12,9 +12,11 @@
 
     include('config/db_connect.php'); //connect to database
 
+    //email content
     $subject = "Email Address Verification";
     $message = "Please click on this <a href=http://localhost/task01/welcome.php>link</a> to verify your email address!";
 
+    //back to login page
     if(isset($_POST['close'])){
         header("location: login01.php");
     }
