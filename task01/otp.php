@@ -22,6 +22,10 @@
                     <input type="submit" name="submit" value="Confirm">
                 </div>
 
+                <div class="loginbtn">
+                    <input type="submit" name="resubmit" value="Re-send OTP">
+                </div>
+
                 <?php
 
                     //Retrieves flag from DBopt.php, (valid=false), means OTP not verified, display message. Reset flag

@@ -1,4 +1,8 @@
 <?php
+
+include '../db_action/sendOTP.php';
+
+
 session_start();
 
 $host="localhost";
@@ -16,6 +20,14 @@ if(isset($_POST['submit'])){
     $otp= $_POST['otp'];
     verifyOTP($conn, $email, $otp);
 }
+
+if(isset($_POST['resubmit'])){
+    $_SESSION['email'] = $email;
+    $otp= $_POST['otp'];
+    resendOTP($conn, $email);
+    
+}
+
 
 function verifyOTP($conn, $email, $otp){
 
@@ -35,5 +47,30 @@ function verifyOTP($conn, $email, $otp){
     }
 
 }
+
+function resendOTP($conn, $email){
+    if (findEmail($conn, $email)){
+        if (generateOTP($conn, $email)){
+
+            $alertMessage = "OTP sent.";
+            echo "<script>alert('$alertMessage'); window.location.href='/task01/otp.php';</script>";
+            #####ignore $_SESSION['email-exists'] = true;
+            //header("Location: /task01/otp.php"); 
+
+        } //if
+
+        else{
+            $alertMessage = "OTP not sent. Mailer error. Please try again later";
+            echo "<script>alert('$alertMessage'); window.location.href='/task01/otp.php';</script>";
+        } //else
+    } //if
+
+    else{
+        $alertMessage = "OTP not sent. Please re-enter your email.";
+        echo "<script>alert('$alertMessage'); window.location.href='/task01/forgot.php';</script>";
+    }
+
+} // funct
+
 
 ?>
