@@ -2,7 +2,7 @@
 session_start(); 
 //session_start();   
 $verify="";
-$credential="";
+$credential ="";
 //checks if http request is post (submit form)
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $host="localhost";
@@ -30,6 +30,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     #execute sql and store in result
     $result = $conn -> query($sql);
 
+    $verify="";
+    $credential ="";
+
     if($result -> num_rows > 0){
         while($row=$result->fetch_assoc())
         {
@@ -42,16 +45,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if (password_verify($password, $stored_hash)){
             if($status == "unverified"){
                 $verify="none";
+                
             }
 
             else{
                 header("location: mainpage.php");
             }
         }
-    
-    }else{
-        $credential ='none';
+        
+        else{
+            $credential ='none';
+           
+        }
     }
+
+    else{
+        $credential ='none';
+       
+    }
+    
 
 
     $conn->close();
