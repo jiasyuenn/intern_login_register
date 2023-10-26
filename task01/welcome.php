@@ -6,6 +6,7 @@
         session_start();
         $status = 'verified';
 
+        //session from register01.php
         if (isset($_SESSION['email01'])) {
             
             $email = $_SESSION['email01'];
@@ -36,11 +37,10 @@
     <div class="wrapper">
         <form action="welcome.php" method="POST">
             <div>
-                <p>Your email is verified! You can login now!</p>
+                <p>Your email is verified ! You can login now !</p>
             </div>
-
             <div>
-                <input type="submit" name="submit" value="submit">
+                <input type="submit" name="submit" value="Proceed">
             </div>
         </form>
     </div> 
